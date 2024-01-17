@@ -1,7 +1,7 @@
 import 'package:list_firestore/core/exceptions/abstractions/app_exception.dart';
 import 'package:list_firestore/modules/home/domain/dto/store_task_dto.dart';
 import 'package:list_firestore/modules/home/domain/entities/task.dart';
-import 'package:list_firestore/modules/home/domain/repositories/i_save_task_firestore_repository.dart';
+import 'package:list_firestore/modules/home/domain/repositories/i_task_repository.dart';
 import 'package:result_dart/result_dart.dart';
 
 abstract class ISaveTaskFirestoreUsecase {
@@ -9,7 +9,7 @@ abstract class ISaveTaskFirestoreUsecase {
 }
 
 class SaveTaskFirestoreUsecase implements ISaveTaskFirestoreUsecase {
-  final ISaveTaskFirestoreRepository _repository;
+  final ITaskRepository _repository;
 
   const SaveTaskFirestoreUsecase(this._repository);
 

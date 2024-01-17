@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:list_firestore/modules/home/domain/entities/task.dart';
 
 abstract class TaskState extends Equatable {}
 
@@ -13,10 +14,12 @@ class LoadingState extends TaskState {
 }
 
 class LoadedState extends TaskState {
-  LoadedState();
+  LoadedState(this.list);
+
+  final List<Task> list;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [list];
 }
 
 class ErrorState extends TaskState {

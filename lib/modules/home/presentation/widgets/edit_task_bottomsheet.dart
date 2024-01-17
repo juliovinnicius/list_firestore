@@ -1,24 +1,43 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:list_firestore/modules/home/domain/entities/task.dart';
 
 typedef OnSaveTaskCallBack = void Function(
   String id,
   String title,
   String description,
+  DateTime created,
+  DateTime update,
 );
 
-class AddTaskBottomSheet extends StatefulWidget {
-  const AddTaskBottomSheet({super.key, required this.onSave});
+class EditTaskBottomSheet extends StatefulWidget {
+  const EditTaskBottomSheet({
+    super.key,
+    required this.onSave,
+    required this.task,
+  });
 
   final OnSaveTaskCallBack onSave;
+  final Task task;
 
   @override
-  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+  State<EditTaskBottomSheet> createState() => _EditTaskBottomSheetState();
 }
 
-class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
-  final idController = TextEditingController();
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+class _EditTaskBottomSheetState extends State<EditTaskBottomSheet> {
+  late final idController;
+  late final titleController;
+  late final descriptionController;
+
+  @override
+  void initState() {
+    idController = TextEditingController(text: widget.task.id);
+    titleController = TextEditingController(text: widget.task.title);
+    descriptionController =
+        TextEditingController(text: widget.task.description);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +66,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             const SizedBox(height: 8),
             TextFormField(
               controller: idController,
+              // initialValue: /,
+              readOnly: true,
               decoration: const InputDecoration(
                 hintText: 'Coloque o id da tarefa',
                 focusedBorder: OutlineInputBorder(),
@@ -102,6 +123,8 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       idController.text,
                       titleController.text,
                       descriptionController.text,
+                      widget.task.created!,
+                      DateTime.now(),
                     ),
                   ),
                 ),
