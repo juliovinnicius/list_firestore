@@ -1,27 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:list_firestore/modules/home/presentation/pages/home_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:list_firestore/firebase_options.dart';
+import 'package:list_firestore/root_module.dart';
+import 'package:list_firestore/root_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ulist',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
+    return ModularApp(
+      module: RootModule(),
+      child: const RootWidget(),
     );
   }
 }
